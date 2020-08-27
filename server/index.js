@@ -43,6 +43,13 @@ app.get('/api/strings', (req, res) => {
   res.send(clientStrings);
 });
 
+// Call to add to array
+app.post('/api/strings', (req, res) => {
+  console.log(req);
+  clientStrings.push(req.body);
+  res.send(clientStrings);
+});
+
 // Start your app.
 app.listen(port, host, async err => {
   if (err) {
