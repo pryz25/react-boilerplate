@@ -28,11 +28,26 @@ const customHost = argv.host || process.env.HOST;
 const host = customHost || null; // Let http.Server use its default IPv6/4 host
 const prettyHost = customHost || 'localhost';
 
+// Array of strings to give to client
+let clientStrings = ['Mortgage', 'Client Success', 'Euclidean', 'Space Race'];
+
 // use the gzipped bundle
 app.get('*.js', (req, res, next) => {
   req.url = req.url + '.gz'; // eslint-disable-line
   res.set('Content-Encoding', 'gzip');
   next();
+});
+
+// Call to get strings
+app.get('/api/strings', (req, res) => {
+  res.send(clientStrings);
+});
+
+// Call to add to array
+app.post('/api/strings', (req, res) => {
+  console.log(req);
+  clientStrings.push(req.body);
+  res.send(clientStrings);
 });
 
 // Start your app.
