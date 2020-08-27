@@ -38,6 +38,11 @@ app.get('*.js', (req, res, next) => {
   next();
 });
 
+// Call to get strings
+app.get('/api/strings', (req, res) => {
+  res.send(clientStrings);
+});
+
 // Start your app.
 app.listen(port, host, async err => {
   if (err) {
