@@ -69,13 +69,13 @@ export function HomePage({
       <div>
         <CenteredSection>
           <H2>
-            <FormattedMessage {...messages.startProjectHeader} />
+            <FormattedMessage {...messages.projectHeader} />
           </H2>
           <p>
-            <FormattedMessage {...messages.startProjectMessage} />
+            <FormattedMessage {...messages.listItemsMessage} />
           </p>
         </CenteredSection>
-        <Section>
+        {/* <Section>
           <H2>
             <FormattedMessage {...messages.trymeHeader} />
           </H2>
@@ -95,7 +95,7 @@ export function HomePage({
             </label>
           </Form>
           <ReposList {...reposListProps} />
-        </Section>
+        </Section> */}
       </div>
     </article>
   );
