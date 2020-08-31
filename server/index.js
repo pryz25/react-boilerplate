@@ -46,7 +46,7 @@ app.get('/api/strings', (req, res) => {
 // Call to add to array
 app.post('/api/strings', (req, res) => {
   console.log(req);
-  clientStrings.push(req.body);
+  clientStrings = [req.body, ...clientStrings];
   res.send(clientStrings);
 });
 
