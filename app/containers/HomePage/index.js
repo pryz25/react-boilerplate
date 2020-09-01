@@ -20,6 +20,7 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 import H2 from 'components/H2';
+import StringList from 'components/StringList';
 import CenteredSection from './CenteredSection';
 import messages from './messages';
 import { loadRepos } from '../App/actions';
@@ -60,7 +61,7 @@ export function HomePage({ strings, loading, error, onStringLoad }) {
           <p>
             <FormattedMessage {...messages.listItemsMessage} />
           </p>
-          {/* {List({ strings })} */}
+          <StringList {...stringsListProps} />
         </CenteredSection>
         {/* <Section>
           <H2>
@@ -81,7 +82,6 @@ export function HomePage({ strings, loading, error, onStringLoad }) {
               />
             </label>
           </Form>
-          <ReposList {...reposListProps} />
         </Section> */}
       </div>
     </article>
