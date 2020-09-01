@@ -28,6 +28,7 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import List from '../../components/List';
+import ListItem from '../../components/ListItem';
 
 const key = 'home';
 
@@ -57,7 +58,7 @@ export function HomePage({ strings }) {
           <p>
             <FormattedMessage {...messages.listItemsMessage} />
           </p>
-          {/* {List(strings)} */}
+          {/* {List({ strings })} */}
         </CenteredSection>
         {/* <Section>
           <H2>
