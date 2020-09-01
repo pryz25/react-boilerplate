@@ -1,10 +1,8 @@
 import {
   selectGlobal,
-  makeSelectCurrentUser,
   makeSelectLoading,
   makeSelectError,
-  makeSelectRepos,
-  makeSelectLocation,
+  makeSelectStrings,
 } from '../selectors';
 
 describe('selectGlobal', () => {
@@ -14,19 +12,6 @@ describe('selectGlobal', () => {
       global: globalState,
     };
     expect(selectGlobal(mockedState)).toEqual(globalState);
-  });
-});
-
-describe('makeSelectCurrentUser', () => {
-  const currentUserSelector = makeSelectCurrentUser();
-  it('should select the current user', () => {
-    const username = 'mxstbr';
-    const mockedState = {
-      global: {
-        currentUser: username,
-      },
-    };
-    expect(currentUserSelector(mockedState)).toEqual(username);
   });
 });
 
@@ -56,30 +41,15 @@ describe('makeSelectError', () => {
   });
 });
 
-describe('makeSelectRepos', () => {
-  const reposSelector = makeSelectRepos();
+describe('makeSelectStrings', () => {
+  const reposSelector = makeSelectStrings();
   it('should select the repos', () => {
     const repositories = [];
     const mockedState = {
       global: {
-        userData: {
-          repositories,
-        },
+        strings: repositories,
       },
     };
     expect(reposSelector(mockedState)).toEqual(repositories);
-  });
-});
-
-describe('makeSelectLocation', () => {
-  const locationStateSelector = makeSelectLocation();
-  it('should select the location', () => {
-    const router = {
-      location: { pathname: '/foo' },
-    };
-    const mockedState = {
-      router,
-    };
-    expect(locationStateSelector(mockedState)).toEqual(router.location);
   });
 });
