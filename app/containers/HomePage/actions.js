@@ -22,8 +22,9 @@ import { GET_STRINGS } from './constants';
  *
  * @return {object} An action object with a type of GET_STRINGS
  */
-export function getStrings() {
+export function getStrings(strings) {
   return {
     type: GET_STRINGS,
+    strings,
   };
 }

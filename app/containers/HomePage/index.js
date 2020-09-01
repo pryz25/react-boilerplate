@@ -34,8 +34,7 @@ export function HomePage({ strings, loading, error, onStringLoad }) {
   useInjectSaga({ key, saga });
 
   useEffect(() => {
-    // When initial state username is not null, submit the form to load repos
-    if (strings && strings.length > 0) onStringLoad();
+    onStringLoad();
   }, []);
 
   const stringsListProps = {
@@ -103,10 +102,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onStringLoad: evt => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loadRepos());
-    },
+    onStringLoad: () => dispatch(loadRepos()),
   };
 }
 

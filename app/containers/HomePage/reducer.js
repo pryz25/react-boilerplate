@@ -20,8 +20,7 @@ const homeReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case GET_STRINGS:
-        // Delete prefixed '@' from the github username
-        draft.strings = action.username.replace(/@/gi, '');
+        draft.strings = action.strings;
         break;
     }
   });

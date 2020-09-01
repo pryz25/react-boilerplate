@@ -15,7 +15,7 @@ import { makeSelectStrings } from 'containers/HomePage/selectors';
 export function* getStrings() {
   // Select strings from store
   const strings = yield select(makeSelectStrings());
-  const requestURL = `localhost:3000/api/strings`;
+  const requestURL = `http://localhost:3000/api/strings`;
 
   try {
     // Call our request helper (see 'utils/request')
