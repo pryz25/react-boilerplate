@@ -23,23 +23,25 @@ import H2 from 'components/H2';
 import CenteredSection from './CenteredSection';
 import messages from './messages';
 import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import List from '../../components/List';
-import ListItem from '../../components/ListItem';
 
 const key = 'home';
 
-export function HomePage({ strings }) {
+export function HomePage({ strings, loading, error, onStringLoad }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  // useEffect(() => {
-  //   // When initial state username is not null, submit the form to load repos
-  //   if (username && username.trim().length > 0) onSubmitForm();
-  // }, []);
+  useEffect(() => {
+    // When initial state username is not null, submit the form to load repos
+    if (strings && strings.length > 0) onStringLoad();
+  }, []);
+
+  const stringsListProps = {
+    loading,
+    error,
+    strings,
+  };
 
   return (
     <article>
@@ -90,6 +92,7 @@ HomePage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   strings: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  onStringLoad: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -98,19 +101,18 @@ const mapStateToProps = createStructuredSelector({
   error: makeSelectError(),
 });
 
-// export function mapDispatchToProps(dispatch) {
-//   return {
-//     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
-//     onSubmitForm: evt => {
-//       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-//       dispatch(loadRepos());
-//     },
-//   };
-// }
+export function mapDispatchToProps(dispatch) {
+  return {
+    onStringLoad: evt => {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      dispatch(loadRepos());
+    },
+  };
+}
 
 const withConnect = connect(
   mapStateToProps,
-  // mapDispatchToProps,
+  mapDispatchToProps,
 );
 
 export default compose(
