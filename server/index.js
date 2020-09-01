@@ -40,14 +40,15 @@ app.get('*.js', (req, res, next) => {
 
 // Call to get strings
 app.get('/api/strings', (req, res) => {
-  res.send(clientStrings);
+  res.status(200).json({ strings: clientStrings });
 });
 
 // Call to add to array
 app.post('/api/strings', (req, res) => {
   console.log(req);
-  clientStrings.push(req.body);
-  res.send(clientStrings);
+  clientStrings = [req.body, ...clientStrings];
+  req.end();
+  res.status(201).json({ strings: clientStrings });
 });
 
 // Start your app.

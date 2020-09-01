@@ -15,18 +15,16 @@
  *    }
  */
 
-import { CHANGE_USERNAME } from './constants';
+import { GET_STRINGS } from './constants';
 
 /**
  * Changes the input field of the form
  *
- * @param  {string} username The new text of the input field
- *
- * @return {object} An action object with a type of CHANGE_USERNAME
+ * @return {object} An action object with a type of GET_STRINGS
  */
-export function changeUsername(username) {
+export function getStrings(strings) {
   return {
-    type: CHANGE_USERNAME,
-    username,
+    type: GET_STRINGS,
+    strings,
   };
 }

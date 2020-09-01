@@ -10,10 +10,7 @@ describe('appReducer', () => {
     state = {
       loading: false,
       error: false,
-      currentUser: false,
-      userData: {
-        repositories: false,
-      },
+      strings: false,
     };
   });
 
@@ -26,7 +23,7 @@ describe('appReducer', () => {
     const expectedResult = produce(state, draft => {
       draft.loading = true;
       draft.error = false;
-      draft.userData.repositories = false;
+      draft.strings = false;
     });
 
     expect(appReducer(state, loadRepos())).toEqual(expectedResult);
@@ -40,9 +37,8 @@ describe('appReducer', () => {
     ];
     const username = 'test';
     const expectedResult = produce(state, draft => {
-      draft.userData.repositories = fixture;
+      draft.strings = fixture;
       draft.loading = false;
-      draft.currentUser = username;
     });
 
     expect(appReducer(state, reposLoaded(fixture, username))).toEqual(

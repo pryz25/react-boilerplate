@@ -1,4 +1,8 @@
-import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR } from '../constants';
+import {
+  LOAD_STRINGS,
+  LOAD_STRINGS_SUCCESS,
+  LOAD_STRINGS_ERROR,
+} from '../constants';
 
 import { loadRepos, reposLoaded, repoLoadingError } from '../actions';
 
@@ -6,7 +10,7 @@ describe('App Actions', () => {
   describe('loadRepos', () => {
     it('should return the correct type', () => {
       const expectedResult = {
-        type: LOAD_REPOS,
+        type: LOAD_STRINGS,
       };
 
       expect(loadRepos()).toEqual(expectedResult);
@@ -16,14 +20,12 @@ describe('App Actions', () => {
   describe('reposLoaded', () => {
     it('should return the correct type and the passed repos', () => {
       const fixture = ['Test'];
-      const username = 'test';
       const expectedResult = {
-        type: LOAD_REPOS_SUCCESS,
-        repos: fixture,
-        username,
+        type: LOAD_STRINGS_SUCCESS,
+        strings: fixture,
       };
 
-      expect(reposLoaded(fixture, username)).toEqual(expectedResult);
+      expect(reposLoaded(fixture)).toEqual(expectedResult);
     });
   });
 
@@ -33,7 +35,7 @@ describe('App Actions', () => {
         msg: 'Something went wrong!',
       };
       const expectedResult = {
-        type: LOAD_REPOS_ERROR,
+        type: LOAD_STRINGS_ERROR,
         error: fixture,
       };
 
