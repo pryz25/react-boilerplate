@@ -2,25 +2,22 @@
  * Gets the repositories of the user from Github
  */
 
-import { call, put, select, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import { LOAD_STRINGS } from 'containers/App/constants';
 import { reposLoaded, repoLoadingError } from 'containers/App/actions';
 
 import request from 'utils/request';
-import { makeSelectStrings } from 'containers/HomePage/selectors';
 
 /**
  * Github repos request/response handler
  */
 export function* getStrings() {
-  // Select strings from store
-  const strings = yield select(makeSelectStrings());
   const requestURL = `http://localhost:3000/api/strings`;
 
   try {
     // Call our request helper (see 'utils/request')
-    const repos = yield call(request, requestURL);
-    yield put(reposLoaded(repos, strings));
+    const strings = yield call(request, requestURL);
+    yield put(reposLoaded(strings));
   } catch (err) {
     yield put(repoLoadingError(err));
   }
