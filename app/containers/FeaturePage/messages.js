@@ -56,7 +56,7 @@ export default defineMessages({
   },
   cssHeader: {
     id: `${scope}.css.header`,
-    defaultMessage: 'Features',
+    defaultMessage: 'Add A String',
   },
   cssMessage: {
     id: `${scope}.css.message`,
