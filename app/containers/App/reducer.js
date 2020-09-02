@@ -18,7 +18,7 @@ import {
 export const initialState = {
   loading: false,
   error: false,
-  strings: false,
+  strings: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -28,7 +28,7 @@ const appReducer = (state = initialState, action) =>
       case LOAD_STRINGS:
         draft.loading = true;
         draft.error = false;
-        draft.strings = false;
+        draft.strings = [];
         break;
 
       case LOAD_STRINGS_SUCCESS:

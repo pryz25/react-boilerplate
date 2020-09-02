@@ -3,17 +3,43 @@
  *
  * List all the features
  */
-import React from 'react';
+import React, { memo } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
+import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
+import request from 'utils/request';
 import H1 from 'components/H1';
+import saga from 'containers/HomePage/saga';
+import { makeSelectString } from './selectors';
+import { changeString } from './actions';
+import Section from './Section';
+import Form from './Form';
+import Input from './Input';
 import messages from './messages';
-import List from './List';
-import ListItem from './ListItem';
-import ListItemTitle from './ListItemTitle';
+import reducer from './reducer';
 
-export default function FeaturePage() {
+const key = 'feature';
+
+export function FeaturePage({ newString, onStringChange }) {
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
+  const url = `http://localhost:3000/api/strings`;
+
+  function onSubmitForm(event) {
+    if (event) event.preventDefault();
+    console.log(newString);
+    return request(url, {
+      method: 'POST',
+      body: newString,
+    }).then(response => response);
+  }
+
   return (
     <div>
       <Helmet>
@@ -26,52 +52,44 @@ export default function FeaturePage() {
       <H1>
         <FormattedMessage {...messages.header} />
       </H1>
-      <List>
-        <ListItem>
-          <ListItemTitle>
-            <FormattedMessage {...messages.scaffoldingHeader} />
-          </ListItemTitle>
-          <p>
-            <FormattedMessage {...messages.scaffoldingMessage} />
-          </p>
-        </ListItem>
-
-        <ListItem>
-          <ListItemTitle>
-            <FormattedMessage {...messages.feedbackHeader} />
-          </ListItemTitle>
-          <p>
-            <FormattedMessage {...messages.feedbackMessage} />
-          </p>
-        </ListItem>
-
-        <ListItem>
-          <ListItemTitle>
-            <FormattedMessage {...messages.routingHeader} />
-          </ListItemTitle>
-          <p>
-            <FormattedMessage {...messages.routingMessage} />
-          </p>
-        </ListItem>
-
-        <ListItem>
-          <ListItemTitle>
-            <FormattedMessage {...messages.networkHeader} />
-          </ListItemTitle>
-          <p>
-            <FormattedMessage {...messages.networkMessage} />
-          </p>
-        </ListItem>
-
-        <ListItem>
-          <ListItemTitle>
-            <FormattedMessage {...messages.intlHeader} />
-          </ListItemTitle>
-          <p>
-            <FormattedMessage {...messages.intlMessage} />
-          </p>
-        </ListItem>
-      </List>
+      <Section>
+        <Form onSubmit={onSubmitForm}>
+          <label htmlFor="newString">
+            <span>Enter a new string for the list here:</span>
+            <Input
+              id="newString"
+              type="text"
+              value={newString}
+              onChange={onStringChange}
+            />
+          </label>
+        </Form>
+      </Section>
     </div>
   );
 }
+
+FeaturePage.propTypes = {
+  newString: PropTypes.string,
+  onStringChange: PropTypes.func,
+};
+
+const mapStateToProps = createStructuredSelector({
+  newString: makeSelectString(),
+});
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    onStringChange: event => dispatch(changeString(event.target.value)),
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  memo,
+)(FeaturePage);
