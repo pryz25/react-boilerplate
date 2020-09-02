@@ -24,7 +24,7 @@ import saga from './saga';
 
 const key = 'feature';
 
-export function FeaturePage({ newString, changeString}) {
+export function FeaturePage({ newString, changeString }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
   const url = `http://localhost:3000/api/strings`;
