@@ -70,7 +70,7 @@ export function HomePage({ strings, loading, error, onStringLoad }) {
 HomePage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  strings: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  strings: PropTypes.array,
   onStringLoad: PropTypes.func,
 };
 
