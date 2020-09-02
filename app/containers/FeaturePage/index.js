@@ -3,7 +3,7 @@
  *
  * List all the features
  */
-import React from 'react';
+import React, { memo } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
@@ -15,6 +15,8 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import request from 'utils/request';
 import H1 from 'components/H1';
+import { makeSelectString } from './selectors';
+import { changeString } from './actions';
 import Section from './Section';
 import Form from './Form';
 import Input from './Input';
@@ -24,7 +26,7 @@ import saga from './saga';
 
 const key = 'feature';
 
-export function FeaturePage({ newString, changeString }) {
+export function FeaturePage({ newString, onStringChange }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
   const url = `http://localhost:3000/api/strings`;
@@ -36,10 +38,6 @@ export function FeaturePage({ newString, changeString }) {
       method: 'POST',
       body: newString,
     }).then(response => response);
-  }
-
-  function onStringChange(event) {
-    if (event) event.preventDefault();
   }
 
   return (
@@ -58,7 +56,12 @@ export function FeaturePage({ newString, changeString }) {
         <Form onSubmit={onSubmitForm}>
           <label htmlFor="newString">
             <span>Enter a new string for the list here:</span>
-            <Input id="newString" type="text" onChange={onStringChange} />
+            <Input
+              id="newString"
+              type="text"
+              value={newString}
+              onChange={onStringChange}
+            />
           </label>
         </Form>
       </Section>
