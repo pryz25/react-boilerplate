@@ -10,7 +10,7 @@ export const scope = 'boilerplate.containers.FeaturePage';
 export default defineMessages({
   header: {
     id: `${scope}.header`,
-    defaultMessage: 'Features',
+    defaultMessage: 'Add A String',
   },
   scaffoldingHeader: {
     id: `${scope}.scaffolding.header`,
