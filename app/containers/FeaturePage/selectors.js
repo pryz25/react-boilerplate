@@ -1,8 +1,12 @@
-import { NEW_STRING } from './constants';
+import { createSelector } from 'reselect';
+import { initialState } from './reducer';
 
-export function changeString(newString) {
-  return {
-    type: NEW_STRING,
-    newString,
-  };
-}
+const selectFeature = state => state.feature || initialState;
+
+const makeSelectString = () =>
+  createSelector(
+    selectFeature,
+    featureState => featureState.username,
+  );
+
+export { selectFeature, makeSelectString };
