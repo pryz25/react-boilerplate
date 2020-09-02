@@ -35,7 +35,7 @@ export function HomePage({ strings, loading, error, onStringLoad }) {
 
   useEffect(() => {
     onStringLoad();
-  }, []);
+  });
 
   const stringsListProps = {
     loading,

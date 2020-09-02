@@ -15,6 +15,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import request from 'utils/request';
 import H1 from 'components/H1';
+import saga from 'containers/HomePage/saga';
 import { makeSelectString } from './selectors';
 import { changeString } from './actions';
 import Section from './Section';
@@ -22,7 +23,6 @@ import Form from './Form';
 import Input from './Input';
 import messages from './messages';
 import reducer from './reducer';
-import saga from './saga';
 
 const key = 'feature';
 
